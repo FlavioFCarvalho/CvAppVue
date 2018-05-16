@@ -17,6 +17,15 @@ document.addEventListener('turbolinks:load', () => {
       el: element,
       data: function() {
         return { user: user }
+      },
+      methods: {
+        saveUser() {
+          this.$http.post('/users', { user: this.user }).then(response => {
+            Turbolinks.visit(`/users/${response.body.id}`)
+          }, response => {
+            console.log(response)
+          })
+        }
       }
     });
   }
